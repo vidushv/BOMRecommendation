@@ -2,6 +2,9 @@ package com.cornell.se.bom.controller;
 
 import com.cornell.se.bom.model.CDPOS;
 import com.cornell.se.bom.repository.CDPOSRepository;
+import com.cornell.se.bom.service.CDPOSService;
+import com.cornell.se.bom.service.impl.CDPOSServiceImpl;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
@@ -12,12 +15,12 @@ import java.util.List;
 public class CDPOSController {
 
     @Autowired
-    CDPOSRepository cdposRepository;
+    CDPOSServiceImpl CDPOSservice;
 
     @Transactional
     @GetMapping("/CDPOS")
     public List<CDPOS> getAllCDPOS() {
-    	List<CDPOS> cdposs =  cdposRepository.findAll();
+    	List<CDPOS> cdposs =  CDPOSservice.getAllCDPOS();
     	System.out.println("CDPOS"+cdposs);
     	return cdposs;
     }
@@ -25,11 +28,7 @@ public class CDPOSController {
     @Transactional
     @PostMapping("/CDPOSInsert")
     public void insertCDPOS() {
-    	CDPOS toinsert = new CDPOS();
-    	toinsert.setAENNR("aennr1");
-    	toinsert.setOLD_MATNR("old1");
-    	cdposRepository.save(toinsert);
-    	cdposRepository.flush();
+    	CDPOSservice.insertCDPOS();
     }
 
 }
