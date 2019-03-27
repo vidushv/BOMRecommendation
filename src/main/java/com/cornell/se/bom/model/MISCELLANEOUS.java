@@ -134,7 +134,20 @@ public class MISCELLANEOUS implements Serializable{
 	 @Column
 	 public String STLNR;
 	 
-	 @Id
+	 
+	 @Column
+	 public String WERKS;
+	 
+	 @JsonProperty("WERKS")
+	 public String getWERKS() {
+		return WERKS;
+	}
+
+	public void setWERKS(String wERKS) {
+		WERKS = wERKS;
+	}
+
+	@Id
 	 @Column
 	 public String STLKN;
 	 
