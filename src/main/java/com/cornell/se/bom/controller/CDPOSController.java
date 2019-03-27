@@ -21,6 +21,15 @@ public class CDPOSController {
     	System.out.println("CDPOS"+cdposs);
     	return cdposs;
     }
+    
+    @Transactional
+    @PostMapping("/CDPOSInsert")
+    public void insertCDPOS() {
+    	CDPOS toinsert = new CDPOS();
+    	toinsert.setAENNR("aennr");
+    	cdposRepository.save(toinsert);
+    	cdposRepository.flush();
+    }
 
 }
 

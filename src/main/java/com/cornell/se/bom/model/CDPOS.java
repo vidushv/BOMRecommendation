@@ -17,13 +17,13 @@ public class CDPOS implements Serializable{
 	 */
 	private static final long serialVersionUID = 1L;
 
-	public Long getId() {
-		return id;
-	}
-
-	public void setId(Long id) {
-		this.id = id;
-	}
+//	public Long getId() {
+//		return id;
+//	}
+//
+//	public void setId(Long id) {
+//		this.id = id;
+//	}
 
 	public String getOLD_MATNR() {
 		return OLD_MATNR;
@@ -81,10 +81,11 @@ public class CDPOS implements Serializable{
 		AENNR = aENNR;
 	}
 
-	@Id
-	 @GeneratedValue(strategy = GenerationType.IDENTITY)
-	 private Long id;
+//	@Id
+//	 @GeneratedValue(strategy = GenerationType.IDENTITY)
+//	 private Long id;
 	 
+	@Id
 	 @Column
 	 public String OLD_MATNR;
 	 
