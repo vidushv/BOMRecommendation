@@ -4,6 +4,7 @@ import java.io.Serializable;
 import javax.persistence.*;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 @Entity
 @Table(name = "CDPOS")
@@ -25,6 +26,7 @@ public class CDPOS implements Serializable{
 //		this.id = id;
 //	}
 
+	@JsonProperty("OLD_MATNR")
 	public String getOLD_MATNR() {
 		return OLD_MATNR;
 	}
@@ -33,6 +35,7 @@ public class CDPOS implements Serializable{
 		OLD_MATNR = oLD_MATNR;
 	}
 
+	@JsonProperty("OLD_UOM")
 	public String getOLD_UOM() {
 		return OLD_UOM;
 	}
@@ -41,6 +44,7 @@ public class CDPOS implements Serializable{
 		OLD_UOM = oLD_UOM;
 	}
 
+	@JsonProperty("VALUE_OLD")
 	public String getVALUE_OLD() {
 		return VALUE_OLD;
 	}
@@ -49,6 +53,7 @@ public class CDPOS implements Serializable{
 		VALUE_OLD = vALUE_OLD;
 	}
 
+	@JsonProperty("NEW_MATNR")
 	public String getNEW_MATNR() {
 		return NEW_MATNR;
 	}
@@ -57,6 +62,7 @@ public class CDPOS implements Serializable{
 		NEW_MATNR = nEW_MATNR;
 	}
 
+	@JsonProperty("NEW_UOM")
 	public String getNEW_UOM() {
 		return NEW_UOM;
 	}
@@ -65,6 +71,7 @@ public class CDPOS implements Serializable{
 		NEW_UOM = nEW_UOM;
 	}
 
+	@JsonProperty("VALUE_NEW")
 	public String getVALUE_NEW() {
 		return VALUE_NEW;
 	}
@@ -73,6 +80,7 @@ public class CDPOS implements Serializable{
 		VALUE_NEW = vALUE_NEW;
 	}
 
+	@JsonProperty("AENNR")
 	public String getAENNR() {
 		return AENNR;
 	}
@@ -85,7 +93,7 @@ public class CDPOS implements Serializable{
 //	 @GeneratedValue(strategy = GenerationType.IDENTITY)
 //	 private Long id;
 	 
-	@Id
+	 @Id
 	 @Column
 	 public String OLD_MATNR;
 	 

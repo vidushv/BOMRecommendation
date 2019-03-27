@@ -26,7 +26,8 @@ public class CDPOSController {
     @PostMapping("/CDPOSInsert")
     public void insertCDPOS() {
     	CDPOS toinsert = new CDPOS();
-    	toinsert.setAENNR("aennr");
+    	toinsert.setAENNR("aennr1");
+    	toinsert.setOLD_MATNR("old1");
     	cdposRepository.save(toinsert);
     	cdposRepository.flush();
     }
