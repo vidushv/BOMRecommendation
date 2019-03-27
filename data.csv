@@ -1,3 +1,3 @@
-﻿Plant,Storage Location,Material Group,Weights,Volume,Purchasing Group,MR8 Group,Strategy,Lot Size,Stock,Location,Availbility ,Scheduling,Date,Cost
-0001,001,000000001,kg,001,0000,10,5,10,7,New York,3,0,032619,1000
-0002,002,000000001,kg,001,0000,10,5,9,7,Pittsburgh,2,0,032619,1200
+﻿ID,Plant,Storage Location,Material Group,Weights,Volume,Purchasing Group,MR8 Group,Strategy,Lot Size,Stock,Location,Availbility ,Scheduling,Date,Cost
+001,0001,001,000000001,kg,001,0000,10,5,10,7,New York,3,0,032619,1000
+002,0002,002,000000001,kg,001,0000,10,5,9,7,Pittsburgh,2,0,032619,1200
