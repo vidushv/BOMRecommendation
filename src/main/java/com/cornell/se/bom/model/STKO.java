@@ -24,7 +24,7 @@ public class STKO implements Serializable{
 	 * 
 	 */
 	 @Id
-	 @Column
+	@Column
 	 public String STLNR;
 	
 	@JsonProperty("STLNR")
