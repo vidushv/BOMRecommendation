@@ -1,5 +1,3 @@
-import spacy
-from nltk import Tree
 import sys
 import math
 import pandas as pd
