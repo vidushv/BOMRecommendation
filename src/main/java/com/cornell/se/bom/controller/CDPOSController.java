@@ -1,14 +1,17 @@
 package com.cornell.se.bom.controller;
 
-import com.cornell.se.bom.model.CDPOS;
-import com.cornell.se.bom.repository.CDPOSRepository;
-import com.cornell.se.bom.service.CDPOSService;
-import com.cornell.se.bom.service.impl.CDPOSServiceImpl;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.bind.annotation.*;
-import java.util.List;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+import com.cornell.se.bom.model.CDPOS;
+import com.cornell.se.bom.model.MISCELLANEOUS;
+import com.cornell.se.bom.service.impl.CDPOSServiceImpl;
 
 @RestController
 @RequestMapping("/api")
@@ -31,5 +34,12 @@ public class CDPOSController {
     	CDPOSservice.insertCDPOS();
     }
 
+    @Transactional
+    @GetMapping("/misc")
+    public List<MISCELLANEOUS> getAllMisc() {
+    	List<MISCELLANEOUS> miscs =  CDPOSservice.getAllMiscellaneous();
+    	System.out.println("MISCS"+miscs);
+    	return miscs;
+    }
 }
 

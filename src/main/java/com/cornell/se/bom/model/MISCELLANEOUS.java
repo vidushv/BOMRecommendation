@@ -1,6 +1,5 @@
 package com.cornell.se.bom.model;
 
-
 import java.io.Serializable;
 import java.util.Date;
 
@@ -12,25 +11,23 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 @Entity
 @Table(name = "MISCELLANEOUS")
 @EntityListeners(AuditingEntityListener.class)
-@JsonIgnoreProperties(value = {"createdAt", "updatedAt"}, 
-        allowGetters = true)
-public class MISCELLANEOUS implements Serializable{
-	
-	 /**
-	 * 
-	 */
+@JsonIgnoreProperties(value = { "createdAt", "updatedAt" }, allowGetters = true)
+public class MISCELLANEOUS implements Serializable {
+
+	/**
+	* 
+	*/
 	private static final long serialVersionUID = 1L;
 
 	/**
 	 * 
 	 */
-	
-	
-	 @Column
-	 public String STORAGE_LOCATION;
-	
-	 @JsonProperty("STORAGE_LOCATION")
-	 public String getSTORAGE_LOCATION() {
+
+	@Column
+	public String STORAGE_LOCATION;
+
+	@JsonProperty("STORAGE_LOCATION")
+	public String getSTORAGE_LOCATION() {
 		return STORAGE_LOCATION;
 	}
 
@@ -83,76 +80,46 @@ public class MISCELLANEOUS implements Serializable{
 		MRP_GROUP = mRP_GROUP;
 	}
 
-	@JsonProperty("STLNR")
-	public String getSTLNR() {
-		return STLNR;
-	}
-
-	public void setSTLNR(String sTLNR) {
-		STLNR = sTLNR;
-	}
-
-	@JsonProperty("STLKN")
-	public String getSTLKN() {
-		return STLKN;
-	}
-
-	public void setSTLKN(String sTLKN) {
-		STLKN = sTLKN;
-	}
-
-	@JsonProperty("STPOS")
-	public String getSTPOS() {
-		return STPOS;
-	}
-
-	public void setSTPOS(String sTPOS) {
-		STPOS = sTPOS;
-	}
-
 	public static long getSerialversionuid() {
 		return serialVersionUID;
 	}
 
+	@EmbeddedId
+	public MiscIdentity identity;
+
+	public MiscIdentity getIdentity() {
+		return identity;
+	}
+
+	public void setIdentity(MiscIdentity identity) {
+		this.identity = identity;
+	}
+
 	@Column
-	 public String MATERIAL_GROUP;
-	
-	
-	 @Column
-	 public String PURCHASING_GROUP;
-	 
-	 @Column
-	 public String STRATEGY;
-	 
-	 @Column
-	 public Integer STOCK;
-	 
-	 @Column
-	 public String MRP_GROUP;
-	 
-	 @Id
-	 @Column
-	 public String STLNR;
-	 
-	 
-	 @Column
-	 public String WERKS;
-	 
-	 @JsonProperty("WERKS")
-	 public String getWERKS() {
+	public String MATERIAL_GROUP;
+
+	@Column
+	public String PURCHASING_GROUP;
+
+	@Column
+	public String STRATEGY;
+
+	@Column
+	public Integer STOCK;
+
+	@Column
+	public String MRP_GROUP;
+
+	@Column
+	public String WERKS;
+
+	@JsonProperty("WERKS")
+	public String getWERKS() {
 		return WERKS;
 	}
 
 	public void setWERKS(String wERKS) {
 		WERKS = wERKS;
 	}
-
-	@Id
-	 @Column
-	 public String STLKN;
-	 
-	 @Id
-	 @Column
-	 public String STPOS;
 
 }
