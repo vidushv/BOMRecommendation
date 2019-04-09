@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.cornell.se.bom.model.CDPOS;
 import com.cornell.se.bom.model.MISCELLANEOUS;
+import com.cornell.se.bom.model.STPO;
 
 public interface CDPOSService {
 	
@@ -11,4 +12,6 @@ public interface CDPOSService {
 	public void insertCDPOS();
 	
 	public List<MISCELLANEOUS> getAllMiscellaneous();
+	
+	public List<STPO> getAllSTPO();
 }

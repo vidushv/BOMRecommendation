@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.cornell.se.bom.model.CDPOS;
 import com.cornell.se.bom.model.MISCELLANEOUS;
+import com.cornell.se.bom.model.STPO;
 import com.cornell.se.bom.service.impl.CDPOSServiceImpl;
 
 @RestController
@@ -40,6 +41,14 @@ public class CDPOSController {
     	List<MISCELLANEOUS> miscs =  CDPOSservice.getAllMiscellaneous();
     	System.out.println("MISCS"+miscs);
     	return miscs;
+    }
+    
+    @Transactional
+    @GetMapping("/stpo")
+    public List<STPO> getAllStpo() {
+    	List<STPO> stpos =  CDPOSservice.getAllSTPO();
+    	System.out.println("MISCS"+stpos);
+    	return stpos;
     }
 }
 
