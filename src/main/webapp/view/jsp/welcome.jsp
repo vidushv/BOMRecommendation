@@ -1,6 +1,7 @@
 <!DOCTYPE HTML>
 <%@page import="java.net.http.HttpResponse"%>
 <%@taglib uri="http://www.springframework.org/tags/form" prefix="form" %>
+<%@ taglib  uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <html lang="en">
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
@@ -32,10 +33,30 @@
       </form:form>
     </div>
   
+   <h4 class="text-info" id="heading" style="display:none">Recommendations</h4>
+   <br/>
+			<table class="table table-hover table-striped" id="res" style="display:none">
+			    <thead>
+			      <tr>
+			      	<th>Material Name</th>
+			      </tr>
+			    </thead>
+			    <tbody>
+					<c:forEach var="result" items="${bomSearchForm.result}">
+						<tr>
+        					<td>${result.IDNRK}</td>
+        				</tr>	
+							
+					</c:forEach>
+				</tbody>
+					
+			</table>	
   <script>
   
   if (document.getElementById('loadedByPost').value == 'true'){
 	  document.getElementById('bomSearchForm').style = "position: absolute;top: 50px;";
+	  document.getElementById('res').style = "position: absolute; top: 450px; left:100px; color:blue;font-size:20px;";
+	  document.getElementById('heading').style = "position: absolute; top: 300px; left:100px; color:white;font-size:40px;";
   }
   
   $("#selectedIDNRK").autocomplete({
