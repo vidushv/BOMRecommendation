@@ -22,15 +22,21 @@
         <div class="inner-form">
           <div class="input-field first-wrap">
             <form:input class="form-control" id="selectedIDNRK" path="selectedIDNRK"  placeholder="Please enter material name to search" list="materials"/>
-            </div>
+            <form:input id="selectedIdentity" style="display:none" path="selectedIdentity"></form:input>
+            <form:input id="loadedByPost" style="display:none" path="loadedByPost"></form:input>
+          </div>
           <div class="input-field fifth-wrap">
-            <button class="btn-search" type="button">SEARCH</button>
+            <button class="btn-search" type="submit">SEARCH</button>
           </div>
         </div>
       </form:form>
     </div>
   
   <script>
+  
+  if (document.getElementById('loadedByPost').value == 'true'){
+	  document.getElementById('bomSearchForm').style = "position: absolute;top: 50px;";
+  }
   
   $("#selectedIDNRK").autocomplete({
       source: function( request, response ) { 
@@ -47,7 +53,8 @@
         	    response($.map(data, function (item) {
         	        return {
         	            label: item.IDNRK,
-        	            value: item.IDNRK
+        	            value: item.IDNRK,
+        	            identity: JSON.stringify(item.stpoIdentity)
         	        }
         	    }));
         	},
@@ -58,9 +65,10 @@
       },
       minLength: 2,
       select: function( event, ui ) {
-        console.log( ui.item ?
-          "Selected: " + ui.item.label :
+    	console.log( ui.item ?
+          "Selected: " + ui.item.IDNRK :
           "Nothing selected, input was " + this.value);
+          document.getElementById('selectedIdentity').value = ui.item.identity;
       },
       open: function() {
         console.log('open');
@@ -68,6 +76,7 @@
       close: function() {
     	  console.log('close');
       }
+      
     });
 
   </script>

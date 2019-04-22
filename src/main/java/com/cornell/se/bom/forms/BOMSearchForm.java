@@ -16,6 +16,23 @@ public class BOMSearchForm implements  Serializable{
 	@NotNull
 	@Size(min=2, max=300)
 	private String selectedIDNRK;
+	
+	private String selectedIdentity;
+	
+	private boolean loadedByPost;
+	
+	public boolean isLoadedByPost() {
+		return loadedByPost;
+	}
+	public void setLoadedByPost(boolean loadedByPost) {
+		this.loadedByPost = loadedByPost;
+	}
+	public String getSelectedIdentity() {
+		return selectedIdentity;
+	}
+	public void setSelectedIdentity(String selectedIdentity) {
+		this.selectedIdentity = selectedIdentity;
+	}
 	public String getSelectedIDNRK() {
 		return selectedIDNRK;
 	}
