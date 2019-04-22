@@ -14,4 +14,5 @@ public interface CDPOSService {
 	public List<MISCELLANEOUS> getAllMiscellaneous();
 	
 	public List<STPO> getAllSTPO();
+	List<STPO> getAllSTPOStartingWith(String startsWith);
 }

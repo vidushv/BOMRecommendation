@@ -9,6 +9,9 @@
     <meta name="author" content="colorlib.com">
     <link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500" rel="stylesheet" />
     <link href="css/main.css" rel="stylesheet" />
+   <script src="http://code.jquery.com/jquery-1.9.1.js"></script>
+<script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
+    
   </head>
   <body>
     <div class="s002">
@@ -18,28 +21,55 @@
         </fieldset>
         <div class="inner-form">
           <div class="input-field first-wrap">
-            <form:input class="form-control" id="selectedIDNRK" path="selectedIDNRK"  placeholder="Please enter material name to search"/>
-          </div>
+            <form:input class="form-control" id="selectedIDNRK" path="selectedIDNRK"  placeholder="Please enter material name to search" list="materials"/>
+            </div>
           <div class="input-field fifth-wrap">
             <button class="btn-search" type="button">SEARCH</button>
           </div>
         </div>
       </form:form>
     </div>
-    <script src="js/extention/choices.js"></script>
-    <script src="js/extention/flatpickr.js"></script>
-    <script>
-      flatpickr(".datepicker",
-      {});
+  
+  <script>
+  
+  $("#selectedIDNRK").autocomplete({
+      source: function( request, response ) { 
+        $.ajax({
+          url: "/api/stpo",
+          dataType: "json",
+          data: {
+            featureClass: "P",
+            style: "full",
+            maxRows: 12,
+            name_startsWith: request.term
+          },
+          success: function (data) {
+        	    response($.map(data, function (item) {
+        	        return {
+        	            label: item.IDNRK,
+        	            value: item.IDNRK
+        	        }
+        	    }));
+        	},
+            error: function(jqXHR, textStatus, errorThrown){
+                alert(jqXHR);                        
+            },
+        });
+      },
+      minLength: 2,
+      select: function( event, ui ) {
+        console.log( ui.item ?
+          "Selected: " + ui.item.label :
+          "Nothing selected, input was " + this.value);
+      },
+      open: function() {
+        console.log('open');
+      },
+      close: function() {
+    	  console.log('close');
+      }
+    });
 
-    </script>
-    <script>
-      const choices = new Choices('[data-trigger]',
-      {
-        searchEnabled: false,
-        itemSelectText: '',
-      });
-
-    </script>
-  </body>
+  </script>
+   </body>
 </html>

@@ -1,5 +1,6 @@
 package com.cornell.se.bom.controller;
 
+import java.net.http.HttpRequest;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -7,6 +8,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -48,11 +50,13 @@ public class CDPOSController {
     
     @Transactional
     @GetMapping("/stpo")
-    public List<STPO> getAllStpo() {
-    	List<STPO> stpos =  CDPOSservice.getAllSTPO();
+    public List<STPO> getAllStpo(@RequestParam("name_startsWith") String startsWith) {
+    	List<STPO> stpos =  CDPOSservice.getAllSTPOStartingWith(startsWith);
     	System.out.println("MISCS"+stpos);
     	return stpos;
     }
+
+    
     
 }
 
