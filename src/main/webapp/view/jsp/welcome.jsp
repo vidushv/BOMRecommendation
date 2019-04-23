@@ -33,9 +33,8 @@
       </form:form>
     </div>
   
-   <h4 class="text-info" id="heading" style="display:none">Recommendations</h4>
-   <br/>
-			<table class="table table-hover table-striped" id="res" style="display:none">
+   <br/><div id="tableDiv">
+			<table id="res" style="display:none">
 			    <thead>
 			      <tr>
 			      	<th>Material Name</th>
@@ -44,19 +43,19 @@
 			    <tbody>
 					<c:forEach var="result" items="${bomSearchForm.result}">
 						<tr>
-        					<td>${result.IDNRK}</td>
+        					<td style="padding:10px;">${result.IDNRK}</td>
         				</tr>	
 							
 					</c:forEach>
 				</tbody>
 					
 			</table>	
+			</div>
   <script>
   
   if (document.getElementById('loadedByPost').value == 'true'){
 	  document.getElementById('bomSearchForm').style = "position: absolute;top: 50px;";
-	  document.getElementById('res').style = "position: absolute; top: 450px; left:100px; color:blue;font-size:20px;";
-	  document.getElementById('heading').style = "position: absolute; top: 300px; left:100px; color:white;font-size:40px;";
+	  document.getElementById('res').style = "position: absolute; top: 350px; left:100px; background:rgba(255,255,255,0.5); width:1600px; font-size:20px; padding:20px; border:20px solid rgba(0, 0, 0, 0.5) !important;";
   }
   
   $("#selectedIDNRK").autocomplete({
