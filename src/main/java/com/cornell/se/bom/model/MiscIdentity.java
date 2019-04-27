@@ -1,6 +1,7 @@
 package com.cornell.se.bom.model;
 
 import java.io.Serializable;
+import java.util.Objects;
 
 import javax.persistence.Column;
 import javax.persistence.Embeddable;
@@ -50,5 +51,27 @@ public class MiscIdentity implements Serializable {
 		public void setSTPOZ(String sTPOZ) {
 			STPOZ = sTPOZ;
 		}
+		
+		@Override
+		public boolean equals(Object obj) {
+			
+			if (!(obj instanceof MiscIdentity))
+				return false;
+			
+			MiscIdentity obj1 = (MiscIdentity)obj;
+			
+			return obj1.STLKN.equals(STLKN) && obj1.STLNR.equals(STLNR) && obj1.STPOZ.equals(STPOZ);
+			
+		}
+		
+		  @Override
+		    public int hashCode() {
+		        return Objects.hash(STLKN, STLNR, STPOZ);
+		    }
+		  
+		  @Override
+		  public String toString() {
+			  return STLKN+"_"+STLNR+"_"+STPOZ;
+		  }
 
 }

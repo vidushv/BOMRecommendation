@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.cornell.se.bom.model.CDPOS;
+import com.cornell.se.bom.model.MAST;
 import com.cornell.se.bom.model.MISCELLANEOUS;
 import com.cornell.se.bom.model.STPO;
 import com.cornell.se.bom.service.impl.CDPOSServiceImpl;
@@ -53,6 +54,13 @@ public class CDPOSController {
     	return stpos;
     }
 
+    @Transactional
+    @GetMapping("/mast")
+    public List<MAST> getAllMast() {
+    	List<MAST> masts =  CDPOSservice.getAllMast();
+    	System.out.println("MAST"+masts);
+    	return masts;
+    }
     
     
 }

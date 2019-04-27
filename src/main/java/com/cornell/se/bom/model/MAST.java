@@ -1,76 +1,44 @@
 package com.cornell.se.bom.model;
 
 import java.io.Serializable;
-import java.util.Date;
 
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.EmbeddedId;
+import javax.persistence.Entity;
+import javax.persistence.EntityListeners;
+import javax.persistence.Table;
+
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
+
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 @Entity
 @Table(name = "MAST")
 @EntityListeners(AuditingEntityListener.class)
-@JsonIgnoreProperties(value = {"createdAt", "updatedAt"}, 
-        allowGetters = true)
-public class MAST implements Serializable{
-	
-	 /**
-	 * 
-	 */
+@JsonIgnoreProperties(value = { "createdAt", "updatedAt" }, allowGetters = true)
+public class MAST implements Serializable {
+
+	/**
+	* 
+	*/
 	private static final long serialVersionUID = 1L;
 
 	/**
 	 * 
 	 */
-	@Id
-	@Column
-	 public String MATNR;
 
-	@JsonProperty("MATNR") 
-	public String getMATNR() {
-		return MATNR;
-	}
+	@EmbeddedId
+	public MastIdentity identity;
 
-	
-	public void setMATNR(String mATNR) {
-		MATNR = mATNR;
+	public MastIdentity getIdentity() {
+		return identity;
 	}
 
-	@JsonProperty("STLNR")
-	public String getSTLNR() {
-		return STLNR;
+	public void setIdentity(MastIdentity identity) {
+		this.identity = identity;
 	}
 
-	public void setSTLNR(String sTLNR) {
-		STLNR = sTLNR;
-	}
-
-	@JsonProperty("STLAL")
-	public String getSTLAL() {
-		return STLAL;
-	}
-
-	public void setSTLAL(String sTLAL) {
-		STLAL = sTLAL;
-	}
-
-	@JsonProperty("STLAN")
-	public String getSTLAN() {
-		return STLAN;
-	}
-
-	public void setSTLAN(String sTLAN) {
-		STLAN = sTLAN;
-	}
-	@JsonProperty("WERKS")
-	public String getWERKS() {
-		return WERKS;
-	}
-
-	public void setWERKS(String wERKS) {
-		WERKS = wERKS;
-	}
 	@JsonProperty("LOSVN")
 	public Integer getLOSVN() {
 		return LOSVN;
@@ -79,6 +47,7 @@ public class MAST implements Serializable{
 	public void setLOSVN(Integer lOSVN) {
 		LOSVN = lOSVN;
 	}
+
 	@JsonProperty("LOSBS")
 	public Integer getLOSBS() {
 		return LOSBS;
@@ -87,27 +56,11 @@ public class MAST implements Serializable{
 	public void setLOSBS(Integer lOSBS) {
 		LOSBS = lOSBS;
 	}
-	@Id
+
 	@Column
-	 public String STLNR;
-	 @Id
-	 @Column
-	 public String STLAL;
-	 @Id
-	 @Column
-	 public String STLAN;
-	 @Id
-	 @Column
-	 public String WERKS;
-	 
-	 @Column
-	 public Integer LOSVN;
-	 
-	 @Column
-	 public Integer LOSBS;
-	 
-	 
-	 
-	 
-	 
+	public Integer LOSVN;
+
+	@Column
+	public Integer LOSBS;
+
 }
