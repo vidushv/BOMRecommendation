@@ -22,4 +22,5 @@ public interface CDPOSService {
 	List<MAST> getMASTfromSTLNR(String STLNR);
 	public List<MISCELLANEOUS> getMiscsWithId(MiscIdentity identity);
 	public STPO getSTPOById(StpoIdentity id);
+	public List<STPO> getSTPOByMATKLK(String mATKL, StpoIdentity stpoToRemove);
 }

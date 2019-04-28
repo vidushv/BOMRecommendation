@@ -25,6 +25,8 @@
             <form:input class="form-control" id="selectedIDNRK" path="selectedIDNRK"  placeholder="Please enter material name to search" list="materials"/>
             <form:input id="selectedIdentity" style="display:none" path="selectedIdentity"></form:input>
             <form:input id="loadedByPost" style="display:none" path="loadedByPost"></form:input>
+            <form:input id="MATKL" style="display:none" path="MATKL"></form:input>
+            <form:errors id="errorMessage" path="errorMessage"></form:errors>
           </div>
           <div class="input-field fifth-wrap">
             <button class="btn-search" type="submit">SEARCH</button>
@@ -74,6 +76,7 @@
         	        return {
         	            label: item.IDNRK,
         	            value: item.IDNRK,
+        	            matkl: item.MATKL,
         	            identity: JSON.stringify(item.stpoIdentity)
         	        }
         	    }));
@@ -89,6 +92,7 @@
           "Selected: " + ui.item.IDNRK :
           "Nothing selected, input was " + this.value);
           document.getElementById('selectedIdentity').value = ui.item.identity;
+          document.getElementById('MATKL').value = ui.item.matkl;
       },
       open: function() {
         console.log('open');

@@ -18,9 +18,28 @@ public class BOMSearchForm implements Serializable {
 	@NotNull
 	@Size(min = 2, max = 300)
 	private String selectedIDNRK;
+	private String MATKL;
+	public String getMATKL() {
+		return MATKL;
+	}
+
+	public void setMATKL(String mATKL) {
+		MATKL = mATKL;
+	}
 
 	private String selectedIdentity;
 	List<STPO> result;
+	
+	
+	private String errorMessage;
+
+	public String getErrorMessage() {
+		return errorMessage;
+	}
+
+	public void setErrorMessage(String errorMessage) {
+		this.errorMessage = errorMessage;
+	}
 
 	public List<STPO> getResult() {
 		return result;

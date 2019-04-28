@@ -125,4 +125,19 @@ public class CDPOSServiceImpl implements CDPOSService{
 		return res;
 	}
 
+	@Override
+	public List<STPO> getSTPOByMATKLK(String mATKL, StpoIdentity toRemove) {
+		List<STPO> stpos = getAllSTPO();
+		
+		List<STPO> res = new ArrayList<STPO>();
+		for(STPO stpo : stpos) {
+			
+			if (stpo.getMATKL().equals(mATKL) && !stpo.getStpoIdentity().equals(toRemove))
+				res.add(stpo);
+			
+		}
+		
+		return res;
+	}
+
 }
