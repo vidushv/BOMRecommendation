@@ -85,8 +85,13 @@ public class WelcomeController {
 		writer.newLine();
 		
 		System.out.println(otherSTPOS);
+		otherSTPOS.add(0,cdposService.getSTPOById(stpoToRemove));
 		
 		for (STPO stpo :otherSTPOS) {
+			
+			if (stpo.getIDNRK().equalsIgnoreCase(selectedName))
+				continue;
+			
 			List<MAST> masts = cdposService.getMASTfromSTLNR(stpo.getStpoIdentity().getSTLNR());
 			MiscIdentity identity = new MiscIdentity();
 			identity.setSTLKN(stpo.getStpoIdentity().getSTLKN());
