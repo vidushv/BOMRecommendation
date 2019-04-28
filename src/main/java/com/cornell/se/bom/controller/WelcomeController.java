@@ -9,6 +9,8 @@ import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -29,6 +31,8 @@ public class WelcomeController {
 
 	@Autowired
 	CDPOSService cdposService;
+	
+	Logger logger = LoggerFactory.getLogger(WelcomeController.class);
 
 	/**
 	 * @return
@@ -55,6 +59,7 @@ public class WelcomeController {
 			@RequestParam(value = "MATKL", required = true) String MATKL)
 			throws IOException, InterruptedException {
 
+		logger.info("Entering displaySearchPage");
 		String SelectedStlnr = selectedIdentity.substring(selectedIdentity.indexOf("STLNR") + 8,selectedIdentity.indexOf("STLKN") - 3);
 		String SelectedStlkn = selectedIdentity.substring(selectedIdentity.indexOf("STLKN") + 8,selectedIdentity.indexOf("STPOZ") - 3);
 		String SelectedStpoz = selectedIdentity.substring(selectedIdentity.indexOf("STPOZ") + 8, selectedIdentity.length() - 2);
@@ -125,6 +130,8 @@ public class WelcomeController {
 			id.setSTPOZ(parts[2]);
 
 			STPO stpo = cdposService.getSTPOById(id);
+			if (stpo.getIDNRK().equalsIgnoreCase(selectedName))
+				continue;
 			list.add(stpo);
 			if (list.size() == 9)
 				break;
