@@ -97,11 +97,15 @@ public class WelcomeController {
 
 				for (MISCELLANEOUS misc : miscs) {
 
-					String vol = Integer.toString((int) Math.random() * 10);
-					String avl = Integer.toString(misc.STOCK - (int) Math.random() * 10);
+					String vol = Integer.toString((int) (Math.random() * 10));
+					String avl = Integer.toString(misc.STOCK - (int) (Math.random() * 10));
+					
+					String pGroup = misc.PURCHASING_GROUP.equals("")?"0":misc.PURCHASING_GROUP;
+					String mGroup = misc.MRP_GROUP.equals("")?"0":misc.MRP_GROUP;
+					
 					writer.write(misc.getIdentity().toString() + "_" + mast.getIdentity().toString() + ","
 							+ mast.getIdentity().WERKS + "," + misc.STORAGE_LOCATION + "," + misc.MATERIAL_GROUP + "," + vol
-							+ "," + misc.PURCHASING_GROUP + "," + misc.MRP_GROUP + "," + mast.LOSBS + "," + misc.STOCK + ","
+							+ "," + pGroup + "," + mGroup + "," + mast.LOSBS + "," + misc.STOCK + ","
 							+ avl);
 					writer.newLine();
 				}
