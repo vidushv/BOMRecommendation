@@ -24,6 +24,9 @@ public class CDPOSController {
     @Autowired
     CDPOSServiceImpl CDPOSservice;
 
+    /**
+     * @return
+     */
     @Transactional
     @GetMapping("/CDPOS")
     public List<CDPOS> getAllCDPOS() {
@@ -32,12 +35,18 @@ public class CDPOSController {
     	return cdposs;
     }
     
+    /**
+     * 
+     */
     @Transactional
     @PostMapping("/CDPOSInsert")
     public void insertCDPOS() {
     	CDPOSservice.insertCDPOS();
     }
 
+    /**
+     * @return
+     */
     @Transactional
     @GetMapping("/misc")
     public List<MISCELLANEOUS> getAllMisc() {
@@ -46,6 +55,10 @@ public class CDPOSController {
     	return miscs;
     }
     
+    /**
+     * @param startsWith
+     * @return
+     */
     @Transactional
     @GetMapping("/stpo")
     public List<STPO> getAllStpo(@RequestParam("name_startsWith") String startsWith) {
@@ -54,6 +67,9 @@ public class CDPOSController {
     	return stpos;
     }
 
+    /**
+     * @return
+     */
     @Transactional
     @GetMapping("/mast")
     public List<MAST> getAllMast() {

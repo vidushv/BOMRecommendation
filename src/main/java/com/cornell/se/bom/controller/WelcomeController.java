@@ -30,6 +30,9 @@ public class WelcomeController {
 	@Autowired
 	CDPOSService cdposService;
 
+	/**
+	 * @return
+	 */
 	@GetMapping("/")
 	public ModelAndView displayIndexPage() {
 		BOMSearchForm bomSearchForm = new BOMSearchForm();
@@ -37,6 +40,14 @@ public class WelcomeController {
 		return mv;
 	}
 
+	/**
+	 * @param selectedIdentity
+	 * @param selectedName
+	 * @param MATKL
+	 * @return
+	 * @throws IOException
+	 * @throws InterruptedException
+	 */
 	@PostMapping("/welcome")
 	public ModelAndView displaySearchPage(
 			@RequestParam(value = "selectedIdentity", required = true) String selectedIdentity,

@@ -32,12 +32,18 @@ public class CDPOSServiceImpl implements CDPOSService{
     MASTRepository mastRepository;
     
 
+	/* (non-Javadoc)
+	 * @see com.cornell.se.bom.service.CDPOSService#getAllCDPOS()
+	 */
 	@Override
 	public List<CDPOS> getAllCDPOS() {
 	
 		return cdposRepository.findAll();
 	}
 
+	/* (non-Javadoc)
+	 * @see com.cornell.se.bom.service.CDPOSService#insertCDPOS()
+	 */
 	@Override
 	public void insertCDPOS() {
 	   	CDPOS toinsert = new CDPOS();
@@ -48,17 +54,26 @@ public class CDPOSServiceImpl implements CDPOSService{
 		
 	}
 
+	/* (non-Javadoc)
+	 * @see com.cornell.se.bom.service.CDPOSService#getAllMiscellaneous()
+	 */
 	@Override
 	public List<MISCELLANEOUS> getAllMiscellaneous() {
 		// TODO Auto-generated method stub
 		return miscRepository.findAll();
 	}
 
+	/* (non-Javadoc)
+	 * @see com.cornell.se.bom.service.CDPOSService#getAllSTPO()
+	 */
 	@Override
 	public List<STPO> getAllSTPO() {
 		return stpoRepository.findAll();
 	}
 	
+	/* (non-Javadoc)
+	 * @see com.cornell.se.bom.service.CDPOSService#getAllSTPOStartingWith(java.lang.String)
+	 */
 	@Override
 	public List<STPO> getAllSTPOStartingWith(String startsWith) {
 		List<STPO> allstpo = stpoRepository.findAll();
@@ -75,10 +90,16 @@ public class CDPOSServiceImpl implements CDPOSService{
 		return result;
 	}
 
+	/* (non-Javadoc)
+	 * @see com.cornell.se.bom.service.CDPOSService#getAllMast()
+	 */
 	public List<MAST> getAllMast() {
 		return mastRepository.findAll();
 	}
 
+	/* (non-Javadoc)
+	 * @see com.cornell.se.bom.service.CDPOSService#getMASTfromSTLNR(java.lang.String)
+	 */
 	@Override
 	public List<MAST> getMASTfromSTLNR(String STLNR) {
 		
@@ -93,6 +114,9 @@ public class CDPOSServiceImpl implements CDPOSService{
 		return res;
 	}
 
+	/* (non-Javadoc)
+	 * @see com.cornell.se.bom.service.CDPOSService#getMiscsWithId(com.cornell.se.bom.model.MiscIdentity)
+	 */
 	@Override
 	public List<MISCELLANEOUS> getMiscsWithId(MiscIdentity identity) {
 		
@@ -110,6 +134,9 @@ public class CDPOSServiceImpl implements CDPOSService{
 		return res;
 	}
 
+	/* (non-Javadoc)
+	 * @see com.cornell.se.bom.service.CDPOSService#getSTPOById(com.cornell.se.bom.model.StpoIdentity)
+	 */
 	@Override
 	public STPO getSTPOById(StpoIdentity id) {
 		List<STPO> stpos = getAllSTPO();
@@ -125,6 +152,9 @@ public class CDPOSServiceImpl implements CDPOSService{
 		return res;
 	}
 
+	/* (non-Javadoc)
+	 * @see com.cornell.se.bom.service.CDPOSService#getSTPOByMATKLK(java.lang.String, com.cornell.se.bom.model.StpoIdentity)
+	 */
 	@Override
 	public List<STPO> getSTPOByMATKLK(String mATKL, StpoIdentity toRemove) {
 		List<STPO> stpos = getAllSTPO();
