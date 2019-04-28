@@ -4,17 +4,26 @@ import pandas as pd
 import parseData
 
 def java_string_hashcode(s):
+    """
+    Convert any string to a java hashcode to represent it as an integer.
+
+    Inputs:
+    s: String to be converted.
+    """
     h = 0
-    #print(s)
     s=str(s)
     for c in s:
-        #print(c)
         c1 = str(c)
         h = (31 * h + ord(c1)) & 0xFFFFFFFF
     return ((h + 0x80000000) & 0xFFFFFFFF) - 0x80000000
 
 def feature_encoder(feature_ob):
-    #[plant, ]
+    """
+    Convert every entry in a feature object to its integer encoded counter part.
+
+    Inputs:
+    feature_ob: Feature object to be encoded.
+    """
     count=1
     feat = []
     for a in feature_ob:
@@ -24,13 +33,24 @@ def feature_encoder(feature_ob):
     return feat
 
 def Sort(sub_li):
+    """
+    Sort results in descending order (by second value in rows). The purpose of this function 
+    is to print the results from best to worst.
+
+    Inputs:
+    sub_li: List to be sorted by second feature.
+    """
     sub_li.sort(key = lambda x: x[1], reverse=True)
     return sub_li
 
 #data_objects is a list of list (model it as pandas data frame)
 def cosine_function(data_objects):
+    """
+    Calculate the cosine similarity for each object in the passed on objects.
+
+    Inputs: data_objects: List of lists representing different objects.
+    """
     orig_bom = data_objects[0]
-    #print(orig_bom)
     orig_feat = feature_encoder(orig_bom)
     result = []
     for index in range(1, len(data_objects)):
@@ -42,7 +62,6 @@ def cosine_function(data_objects):
             sum+=current_feat[i]*orig_feat[i]
             v_one += current_feat[i]*current_feat[i]
             v_two += orig_feat[i]*orig_feat[i]
-        #print(data_objects)
         v1 = math.sqrt(v_one)
         v2 = math.sqrt(v_two)
         rating = sum/(v1*v2)
@@ -50,9 +69,7 @@ def cosine_function(data_objects):
     return result
 
 df = parseData.readData('/home/mukul/git/BOMRecommendation/machine_learning/csvfile.csv')
-#print(df)
 dataobjects = df.values.tolist()
-#print(dataobjects)
 result = cosine_function(dataobjects)
 result = Sort(result)
 print('id , scores')
