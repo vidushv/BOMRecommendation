@@ -7,6 +7,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 
 import org.slf4j.Logger;
@@ -113,7 +114,7 @@ public class WelcomeController {
 			}
 			
 		}
-
+ 
 		writer.close();
 
 		ProcessBuilder builder = new ProcessBuilder("sh",
@@ -124,6 +125,7 @@ public class WelcomeController {
 		BufferedReader br = new BufferedReader(new InputStreamReader(p.getInputStream()));
 		String line = br.readLine();
 		List<STPO> list = new ArrayList<STPO>();
+		HashSet<String> set = new HashSet<String>();
 
 		while ((line = br.readLine()) != null) {
 
@@ -134,8 +136,10 @@ public class WelcomeController {
 			id.setSTPOZ(parts[2]);
 
 			STPO stpo = cdposService.getSTPOById(id);
-			if (stpo.getIDNRK().equalsIgnoreCase(selectedName))
+			if (set.contains(stpo.getIDNRK()))
 				continue;
+			
+			set.add(stpo.getIDNRK());
 			list.add(stpo);
 			if (list.size() == 9)
 				break;
