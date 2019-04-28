@@ -57,7 +57,7 @@
   
   if (document.getElementById('loadedByPost').value == 'true'){
 	  document.getElementById('bomSearchForm').style = "position: absolute;top: 50px;";
-	  document.getElementById('res').style = "position: absolute; top: 350px; left:100px; background:rgba(255,255,255,0.5); width:1600px; font-size:20px; padding:20px; border:20px solid rgba(0, 0, 0, 0.5) !important;";
+	  document.getElementById('res').style = "position: absolute; top: 350px; left:100px; background:rgba(255,255,255,0.5); width:1600px; font-size:20px; padding:20px; border:20px solid rgba(0, 0, 0, 0.7) !important;";
   }
   
   $("#selectedIDNRK").autocomplete({
