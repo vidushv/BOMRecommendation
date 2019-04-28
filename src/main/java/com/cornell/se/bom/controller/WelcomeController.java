@@ -105,7 +105,7 @@ public class WelcomeController {
 					String mGroup = misc.MRP_GROUP.equals("")?"0":misc.MRP_GROUP;
 					
 					writer.write(misc.getIdentity().toString() + "_" + mast.getIdentity().toString() + ","
-							+ mast.getIdentity().WERKS + "," + misc.STORAGE_LOCATION + "," + misc.MATERIAL_GROUP + "," + vol
+							+ misc.WERKS + "," + misc.STORAGE_LOCATION + "," + misc.MATERIAL_GROUP + "," + vol
 							+ "," + pGroup + "," + mGroup + "," + mast.LOSBS + "," + misc.STOCK + ","
 							+ avl);
 					writer.newLine();
