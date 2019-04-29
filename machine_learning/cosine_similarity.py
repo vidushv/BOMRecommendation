@@ -68,7 +68,7 @@ def cosine_function(data_objects):
         result.append([data_objects[index][0],rating])
     return result
 
-df = parseData.readData('/home/mukul/git/BOMRecommendation/machine_learning/csvfile.csv')
+df = parseData.readData('csvfile.csv')
 dataobjects = df.values.tolist()
 result = cosine_function(dataobjects)
 result = Sort(result)
