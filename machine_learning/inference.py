@@ -9,11 +9,15 @@ import classifier
 from gensim.models.keyedvectors import KeyedVectors
 model = KeyedVectors.load_word2vec_format("glove_model2.txt", binary=False, limit=50000)
 
-def predict_probabilities(data_objects):
+def predict_probabilities(data_objects, printable = True, n_estimators=100, max_depth=2,random_state=0):
     """
     This function is used to predict class probabilities and return the recommendations computed.
-    :param data_objects:
-    :return:
+    :param data_objects: data objects to be trained, historical data
+    :param printable: boolean check for printing values or not, default true
+    :param n_estimators: ensemble estimates
+    :param max_depth: max depth of random forest trees
+    :param random_state: random state argument for random forests
+    :return recommendation list as being printed on the console:
     """
     orig_bom = data_objects[0]
     feature_matrix = []
@@ -33,13 +37,24 @@ def predict_probabilities(data_objects):
     bom = np.array(bom_encoding)
     bom = bom.reshape(1,-1)
     prob = clf.predict_proba(bom)
-    #print(prob)
-    print('Recommendations are:')
-    for i in range(len(prob[0])):
-        print('Class label ',i+1,': ',"{0:0.3f}".format(prob[0][i]))
+    if printable == True:
+        #print('Recommendations are:')
+        #for i in range(len(prob[0])):
+            #print('Class label ',i+1,': ',"{0:0.3f}".format(prob[0][i]))
+        for i in range(len(prob[0])):
+            print(i+1,' , ',"{0:0.3f}".format(prob[0][i]))
+    return prob
 
 
-df = pd.read_csv('csvfile.csv')
-dataobjects = df.values.tolist()
-predict_probabilities(dataobjects)
+def main():
+    """
+    main function being called
+    :return: print recommendations:
+    """
+    df = pd.read_csv('csvfile.csv')
+    dataobjects = df.values.tolist()
+    predict_probabilities(dataobjects)
+
+if __name__ == "__main__":
+    main()
 

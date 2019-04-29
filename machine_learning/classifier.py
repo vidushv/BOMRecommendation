@@ -13,8 +13,8 @@ model = KeyedVectors.load_word2vec_format("glove_model2.txt", binary=False, limi
 def feature_extractor(orig_object, data_object):
     """
     This function is used to extract features in the data set and return a list of all the features computed.
-    :param orig_object:
-    :param data_object:
+    :param bom_object original object to be sent
+    :param data_object: historical data sent
     :return feat(list):
     """
     feat = []
@@ -76,13 +76,17 @@ def feature_extractor(orig_object, data_object):
     feat.append(data_object[0])
     return feat
 
-def classify(bom_objects,data_objects):
+def classify(bom_objects,data_objects, printable = True, n_estimators=100, max_depth=2,random_state=0):
     """
     This function is used to compute the accuracy, precision, recall and f-score of the model
     and evaluate the same on being averaged over a few items.
-    :param bom_objects:
-    :param data_objects:
-    :return:
+    :param bom_objects: original object to be sent
+    :param data_objects: historical data sent
+    :param printable: boolean check for printing values or not, default true
+    :param n_estimators: ensemble estimates
+    :param max_depth: max depth of random forest trees
+    :param random_state: random state argument for random forests
+    :return print evaluation metrics:
     """
     precision =0.0
     accuracy =0.0
@@ -102,26 +106,35 @@ def classify(bom_objects,data_objects):
         for i in range(len(Xtrain)):
             Ytrain.append(X[i][-1])
         clf = RandomForestClassifier(n_estimators=100, max_depth=2,random_state=0)
-        clf.fit(Xtrain[:350], Ytrain[:350])
-        Ytest = clf.predict(Xtrain[351:553])
-        scores = precision_recall_fscore_support(Ytrain[351:553], Ytest, average='micro')
-        acc = accuracy_score(Ytrain[351:553], Ytest)
+        clf.fit(Xtrain[:int(len(Xtrain)*0.7)], Ytrain[:int(len(Xtrain)*0.7)])
+        Ytest = clf.predict(Xtrain[int(len(Xtrain)*0.7)+1:])
+        scores = precision_recall_fscore_support(Ytrain[int(len(Xtrain)*0.7)+1:], Ytest, average='micro')
+        acc = accuracy_score(Ytrain[int(len(Xtrain)*0.7)+1:], Ytest)
         precision+=scores[0]
         recall+=scores[1]
         fscore+=scores[2]
         accuracy+=acc
     lent = len(bom_objects)
-    print('precision: ',"{0:0.3f}".format(precision/lent))
-    print('recall\t : ',"{0:0.3f}".format(recall/lent))
-    print('f-score\t : ',"{0:0.3f}".format(fscore/lent))
-    print('accuracy : ',"{0:0.3f}".format(accuracy/lent))
+    if (printable== True):
+        print('precision: ',"{0:0.3f}".format(precision/lent))
+        print('recall\t : ',"{0:0.3f}".format(recall/lent))
+        print('f-score\t : ',"{0:0.3f}".format(fscore/lent))
+        print('accuracy : ',"{0:0.3f}".format(accuracy/lent))
+    result = list(scores)
+    result.append(acc)
+    return result
 
 
 def main():
+    """
+    main function being called
+    :return: print evaluation metrics:
+    """
     df1 = pd.read_csv('evaluate_data.csv')
     df = pd.read_csv('csvfile.csv')
     dataobjects = df.values.tolist()
     bomobjects = df1.values.tolist()
     classify(bomobjects,dataobjects)
 
-main()
+if __name__ == "__main__":
+    main()
