@@ -1,7 +1,10 @@
 import unittest
 import cosine_similarity
 import parseData
-
+import feature_importance
+import pandas as pd
+import classifier
+import inference
 
 class TestStringMethods(unittest.TestCase): 
     def setUp(self): 
@@ -32,6 +35,48 @@ class TestStringMethods(unittest.TestCase):
         test_string = 'a0b1Z4'
         res = cosine_similarity.java_string_hashcode(test_string)
         self.assertTrue(type(res) is int)
+    
+    def test_compute_feature_importance(self):
+        """
+        Test the compute_feature_importance() function to ensure each feature
+        importance is less than 1 and the total feature importances add to 1.
+        """
+        df = pd.read_csv('csvfile.csv')
+        dataobjects = df.values.tolist()
+        clf = compute_feature_importance(dataobjects)
+        runningTotal = 0
+        for eachImportance in clf.feature_importances_:
+            runningTotal += eachImportance
+            self.assertTrue (eachImportance <= 1.0)
+        self.assertTrue(runningTotal, 1.0)
+
+    def test_feature_extractor(self):
+        """
+        Test that the feature extractor outputs a value for every one of the nine
+        expected values. 
+        """
+        df1 = pd.read_csv('evaluate_data.csv')
+        df = pd.read_csv('csvfile.csv')
+        orig_objects = df.values.tolist()
+        data_objects = df1.values.tolist()
+        features = feature_extractor(orig_objects[0], data_objects[0])
+        self.assertEqual(len(features, 9))
+        for feature in features:
+            self.assertFalse(feature == Null)
+    
+    def test_classify(self):
+        """
+        Verify the results returned from the classifier contain all 5 scores.
+        """
+        df1 = pd.read_csv('evaluate_data.csv')
+        df = pd.read_csv('csvfile.csv')
+        dataobjects = df.values.tolist()
+        bomobjects = df1.values.tolist()
+        result = classify(dataobjects, bomobjects)
+        self.assertEqual(len(result), 5)
+
+    def test_predict_probabilities(self):
+        
     
 if __name__ == '__main__': 
     unittest.main() 
