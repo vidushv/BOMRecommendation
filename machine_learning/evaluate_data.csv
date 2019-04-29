@@ -1,0 +1,8 @@
+ID,Plant,Storage Location,Material Group,Volume,Purchasing Group,MRP Group,Lot Size,Stock,Availbility
+0,Boston,Boston,701,5,2,5,7,62,47
+1,Seattle,London,701,6,0,14,48,65,85
+4,Toronto,London,700,5,4,10,47,53,64
+5,Atlanta,Boston,700,7,4,20,5,35,68
+3,Philadelphia,Boston,700,4,4,12,38,99,73
+1,Seattle,London,701,7,0,17,10,26,69
+2,Philadelphia,Boston,700,1,4,4,34,10,83
