@@ -34,15 +34,7 @@ def feature_extractor(orig_object, data_object):
     material_group_score = score
     feat.append(material_group_score)
 
-    pricing_group_score = int(str(orig_object[4]))- int(str(data_object[4]))
-    if pricing_group_score==0:
-        score = 1
-    else:
-        score = 0
-    pricing_group_score = score
-    feat.append(pricing_group_score)
-
-    volume_score = int(str(orig_object[5]))- int(str(data_object[5]))
+    volume_score = int(str(orig_object[4]))- int(str(data_object[4]))
     if volume_score <= 0:
         score = 1
     else:
@@ -50,7 +42,25 @@ def feature_extractor(orig_object, data_object):
     volume_score = score
     feat.append(volume_score)
 
-    lot_score = int(str(orig_object[6]))- int(str(data_object[6]))
+    pricing_group_score = int(str(orig_object[5]))- int(str(data_object[5]))
+    if pricing_group_score==0:
+        score = 1
+    else:
+        score = 0
+    pricing_group_score = score
+    feat.append(pricing_group_score)
+
+
+    mrp_score = int(str(orig_object[6]))- int(str(data_object[6]))
+    if mrp_score >= 0:
+        score = 1
+    else:
+        score = 0
+    mrp_score = score
+    feat.append(mrp_score)
+
+
+    lot_score = int(str(orig_object[7]))- int(str(data_object[7]))
     if lot_score >= 0:
         score = 1
     else:
@@ -58,7 +68,7 @@ def feature_extractor(orig_object, data_object):
     lot_score = score
     feat.append(lot_score)
 
-    stock_score = int(str(orig_object[7]))- int(str(data_object[7]))
+    stock_score = int(str(orig_object[8]))- int(str(data_object[8]))
     if stock_score >= 0:
         score = 1
     else:
@@ -66,14 +76,15 @@ def feature_extractor(orig_object, data_object):
     stock_score = score
     feat.append(stock_score)
 
-    availability_score = int(str(orig_object[8]))- int(str(data_object[8]))
+    availability_score = int(str(orig_object[9]))- int(str(data_object[9]))
     if availability_score >= 0:
         score = 1
     else:
         score = 0
     availability_score = score
     feat.append(availability_score)
-    feat.append(data_object[0])
+    #feat.append(data_object[0])
+    #print(feat)
     return feat
 
 def classify(bom_objects,data_objects, printable = True, n_estimators=100, max_depth=2,random_state=0):

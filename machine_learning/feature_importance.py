@@ -5,8 +5,6 @@ from sklearn.ensemble import RandomForestClassifier
 from sklearn.datasets import make_classification
 
 from gensim.models.keyedvectors import KeyedVectors
-model = KeyedVectors.load_word2vec_format("glove_model2.txt", binary=False, limit=50000)
-import classifier
 
 def compute_feature_importance(data_objects, printable = True, n_estimators=100, max_depth=2,random_state=0):
     """
