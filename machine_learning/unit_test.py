@@ -59,7 +59,7 @@ class TestStringMethods(unittest.TestCase):
         df = pd.read_csv('csvfile.csv')
         orig_objects = df.values.tolist()
         data_objects = df1.values.tolist()
-        features = classifier.feature_extractor(orig_objects[0], data_objects[0], False)
+        features = classifier.feature_extractor(orig_objects[0], data_objects[0])
         self.assertEqual(len(features), 9)
         for feature in features:
             self.assertFalse(feature is None)
