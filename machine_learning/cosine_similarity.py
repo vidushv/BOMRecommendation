@@ -68,10 +68,17 @@ def cosine_function(data_objects):
         result.append([data_objects[index][0],rating])
     return result
 
-df = parseData.readData('csvfile.csv')
-dataobjects = df.values.tolist()
-result = cosine_function(dataobjects)
-result = Sort(result)
-print('id , scores')
-for i in range(len(result)):
-    print(result[i][0],',',result[i][1])
+def main():
+    """
+    main function to run cosine_similarity.
+    """
+    df = parseData.readData('csvfile.csv')
+    dataobjects = df.values.tolist()
+    result = cosine_function(dataobjects)
+    result = Sort(result)
+    print('id , scores')
+    for i in range(len(result)):
+        print(result[i][0],',',result[i][1])
+
+if __name__ == "__main__":
+    main()
