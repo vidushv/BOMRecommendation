@@ -2,6 +2,7 @@ com.cornell.se.bom.bomRecom
 com.cornell.se.bom.controller
 com.cornell.se.bom.forms
 com.cornell.se.bom.model
+com.cornell.se.bom.recommendors
 com.cornell.se.bom.repository
 com.cornell.se.bom.service
 com.cornell.se.bom.service.impl
