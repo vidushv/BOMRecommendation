@@ -6,9 +6,20 @@ import numpy as np
 from sklearn.ensemble import RandomForestClassifier
 from sklearn.datasets import make_classification
 import classifier
-
 from sklearn import preprocessing
+import warnings
+warnings.filterwarnings("ignore")
 
+def Sort(sub_li):
+    """
+    Sort results in descending order (by second value in rows). The purpose of this function
+    is to print the results from best to worst.
+
+    Inputs:
+    sub_li: List to be sorted by second feature.
+    """
+    sub_li.sort(key = lambda x: x[1], reverse=True)
+    return sub_li
 
 def predict_probabilities(data_objects, printable = True, n_estimators=100, max_depth=2,random_state=0):
     """
@@ -54,8 +65,16 @@ def predict_probabilities(data_objects, printable = True, n_estimators=100, max_
     prob = clf.predict_proba(bom)
     classes = clf.classes_
     if printable == True:
+        result = []
         for i in range(len(prob[0])):
-            print(inverse_class[classes[i]],' , ',"{0:0.3f}".format(prob[0][i]))
+            temp = []
+            temp.append(inverse_class[classes[i]])
+            temp.append(prob[0][i])
+            result.append(temp)
+
+        result1 = Sort(result)
+        for a in result1:
+            print(a[0],' , ',"{0:0.3f}".format(a[1]))
     return prob
 
 
@@ -64,7 +83,7 @@ def main():
     main function being called
     :return: print recommendations:
     """
-    df = pd.read_csv('/home/mukul/git/BOMRecommendation/machine_learning/csvfile.csv')
+    df = pd.read_csv(sys.argv[1])
     dataobjects = df.values.tolist()
     predict_probabilities(dataobjects)
 
