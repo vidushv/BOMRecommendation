@@ -1,1 +1,1 @@
-python3 /home/mukul/git/BOMRecommendation/machine_learning/cosine_similarity.py
+python3 /home/mukul/git/BOMRecommendation/machine_learning/inference.py

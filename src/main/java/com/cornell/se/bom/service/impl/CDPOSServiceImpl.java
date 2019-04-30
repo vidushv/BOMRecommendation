@@ -1,6 +1,7 @@
 package com.cornell.se.bom.service.impl;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -78,11 +79,13 @@ public class CDPOSServiceImpl implements CDPOSService{
 	public List<STPO> getAllSTPOStartingWith(String startsWith) {
 		List<STPO> allstpo = stpoRepository.findAll();
 		List<STPO> result = new ArrayList<STPO>();
+		HashSet<String> uniq = new HashSet<String>();
 		
 		for (STPO stpo: allstpo) {
 			
-			if (stpo.IDNRK.toLowerCase().contains(startsWith.toLowerCase())) {
+			if (stpo.IDNRK.toLowerCase().contains(startsWith.toLowerCase()) && !uniq.contains(stpo.IDNRK.toLowerCase())) {
 				result.add(stpo);
+				uniq.add(stpo.IDNRK.toLowerCase());
 			} 
 				
 		}

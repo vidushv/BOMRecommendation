@@ -7,7 +7,7 @@ from sklearn.ensemble import RandomForestClassifier
 from sklearn.datasets import make_classification
 
 from gensim.models.keyedvectors import KeyedVectors
-model = KeyedVectors.load_word2vec_format("glove_model2.txt", binary=False, limit=50000)
+model = KeyedVectors.load_word2vec_format("/home/mukul/git/BOMRecommendation/machine_learning/glove_model2.txt", binary=False, limit=50000)
 
 
 def feature_extractor(orig_object, data_object):

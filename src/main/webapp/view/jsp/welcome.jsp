@@ -38,14 +38,16 @@
    <br/><div id="tableDiv">
 			<table id="res" style="display:none">
 			    <thead>
-			      <tr>
+			      <tr style="text-align:left">
 			      	<th>Material Name</th>
+			      	<th>Confidence</th>
 			      </tr>
 			    </thead>
 			    <tbody>
 					<c:forEach var="result" items="${bomSearchForm.result}">
 						<tr>
         					<td style="padding:10px;">${result.IDNRK}</td>
+        					<td style="padding:10px;">${result.MEINS}</td>
         				</tr>	
 							
 					</c:forEach>

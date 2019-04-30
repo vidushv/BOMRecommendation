@@ -53,13 +53,13 @@ public class MISCELLANEOUS implements Serializable {
 		PURCHASING_GROUP = pURCHASING_GROUP;
 	}
 
-	@JsonProperty("STRATEGY")
-	public String getSTRATEGY() {
-		return STRATEGY;
+	@JsonProperty("AVAILABILITY")
+	public String getAVAILABILITY() {
+		return AVAILABILITY;
 	}
 
-	public void setSTRATEGY(String sTRATEGY) {
-		STRATEGY = sTRATEGY;
+	public void setAVAILABILITY(String aVAILABILITY) {
+		AVAILABILITY = aVAILABILITY;
 	}
 
 	@JsonProperty("STOCK")
@@ -102,7 +102,7 @@ public class MISCELLANEOUS implements Serializable {
 	public String PURCHASING_GROUP;
 
 	@Column
-	public String STRATEGY;
+	public String AVAILABILITY;
 
 	@Column
 	public Integer STOCK;
@@ -112,6 +112,18 @@ public class MISCELLANEOUS implements Serializable {
 
 	@Column
 	public String WERKS;
+	
+	@Column
+	public String VOLUME;
+
+	@JsonProperty("STORAGE_LOCATION")
+	public String getVOLUME() {
+		return VOLUME;
+	}
+
+	public void setVOLUME(String vOLUME) {
+		VOLUME = vOLUME;
+	}
 
 	@JsonProperty("WERKS")
 	public String getWERKS() {

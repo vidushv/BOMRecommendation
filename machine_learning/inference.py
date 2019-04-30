@@ -64,7 +64,7 @@ def main():
     main function being called
     :return: print recommendations:
     """
-    df = pd.read_csv('csvfile.csv')
+    df = pd.read_csv('/home/mukul/git/BOMRecommendation/machine_learning/csvfile.csv')
     dataobjects = df.values.tolist()
     predict_probabilities(dataobjects)
 

@@ -25,6 +25,7 @@ import com.cornell.se.bom.model.MISCELLANEOUS;
 import com.cornell.se.bom.model.MiscIdentity;
 import com.cornell.se.bom.model.STPO;
 import com.cornell.se.bom.model.StpoIdentity;
+import com.cornell.se.bom.recommendors.RecommendationFactory;
 import com.cornell.se.bom.service.CDPOSService;
 
 @Controller
@@ -32,6 +33,9 @@ public class WelcomeController {
 
 	@Autowired
 	CDPOSService cdposService;
+	
+	@Autowired
+	RecommendationFactory recommendationFactory;
 	
 	Logger logger = LoggerFactory.getLogger(WelcomeController.class);
 
@@ -61,15 +65,10 @@ public class WelcomeController {
 			throws IOException, InterruptedException {
 
 		logger.info("Entering displaySearchPage");
+		
 		String SelectedStlnr = selectedIdentity.substring(selectedIdentity.indexOf("STLNR") + 8,selectedIdentity.indexOf("STLKN") - 3);
 		String SelectedStlkn = selectedIdentity.substring(selectedIdentity.indexOf("STLKN") + 8,selectedIdentity.indexOf("STPOZ") - 3);
 		String SelectedStpoz = selectedIdentity.substring(selectedIdentity.indexOf("STPOZ") + 8, selectedIdentity.length() - 2);
-		StpoIdentity stpoToRemove  = new StpoIdentity();
-		stpoToRemove.setSTLKN(SelectedStlkn);
-		stpoToRemove.setSTLNR(SelectedStlnr);
-		stpoToRemove.setSTPOZ(SelectedStpoz);
-		
-		List<STPO> otherSTPOS = cdposService.getSTPOByMATKLK(MATKL,stpoToRemove);
 		
 		BOMSearchForm bomSearchForm = new BOMSearchForm();
 		bomSearchForm.setSelectedIDNRK(selectedName);
@@ -77,80 +76,16 @@ public class WelcomeController {
 		bomSearchForm.setSelectedIdentity(selectedIdentity);
 		bomSearchForm.setMATKL(MATKL);
 		
-		BufferedWriter writer = new BufferedWriter(
-				new FileWriter("/home/mukul/git/BOMRecommendation/machine_learning/csvfile.csv"));
-
-		writer.write(
-				"ID,Plant,Storage Location,Material Group,Volume,Purchasing Group,MRP Group,Lot Size,Stock,Availbility");
-		writer.newLine();
+		StpoIdentity identity  = new StpoIdentity();
+		identity.setSTLKN(SelectedStlkn);
+		identity.setSTLNR(SelectedStlnr);
+		identity.setSTPOZ(SelectedStpoz);
 		
-		System.out.println(otherSTPOS);
-		otherSTPOS.add(0,cdposService.getSTPOById(stpoToRemove));
+		STPO fromUI = cdposService.getSTPOById(identity);
+
+		List<STPO> result = recommendationFactory.getRecommendor("Random Forest").getRecommendations(fromUI, cdposService);
 		
-		for (STPO stpo :otherSTPOS) {
-			
-			if (stpo.getIDNRK().equalsIgnoreCase(selectedName))
-				continue;
-			
-			List<MAST> masts = cdposService.getMASTfromSTLNR(stpo.getStpoIdentity().getSTLNR());
-			MiscIdentity identity = new MiscIdentity();
-			identity.setSTLKN(stpo.getStpoIdentity().getSTLKN());
-			identity.setSTLNR(stpo.getStpoIdentity().getSTLNR());
-			identity.setSTPOZ(stpo.getStpoIdentity().getSTPOZ());
-			List<MISCELLANEOUS> miscs = cdposService.getMiscsWithId(identity);
-			
-			for (MAST mast : masts) {
-
-				for (MISCELLANEOUS misc : miscs) {
-
-					String vol = Integer.toString((int) (Math.random() * 10));
-					String avl = Integer.toString(misc.STOCK - (int) (Math.random() * 10));
-					
-					String pGroup = misc.PURCHASING_GROUP.equals("")?"0":misc.PURCHASING_GROUP;
-					String mGroup = misc.MRP_GROUP.equals("")?"0":misc.MRP_GROUP;
-					
-					writer.write(misc.getIdentity().toString() + "_" + mast.getIdentity().toString() + ","
-							+ misc.WERKS + "," + misc.STORAGE_LOCATION + "," + misc.MATERIAL_GROUP + "," + vol
-							+ "," + pGroup + "," + mGroup + "," + mast.LOSBS + "," + misc.STOCK + ","
-							+ avl);
-					writer.newLine();
-				}
-				break;
-			}
-			
-		}
- 
-		writer.close();
-
-		ProcessBuilder builder = new ProcessBuilder("sh",
-				"/home/mukul/git/BOMRecommendation/machine_learning/execute.sh");
-		Process p = builder.start();
-		p.waitFor();
-
-		BufferedReader br = new BufferedReader(new InputStreamReader(p.getInputStream()));
-		String line = br.readLine();
-		List<STPO> list = new ArrayList<STPO>();
-		HashSet<String> set = new HashSet<String>();
-
-		while ((line = br.readLine()) != null) {
-
-			String parts[] = line.split(",")[0].split("_");
-			StpoIdentity id = new StpoIdentity();
-			id.setSTLKN(parts[0]);
-			id.setSTLNR(parts[1]);
-			id.setSTPOZ(parts[2]);
-
-			STPO stpo = cdposService.getSTPOById(id);
-			if (set.contains(stpo.getIDNRK()))
-				continue;
-			
-			set.add(stpo.getIDNRK());
-			list.add(stpo);
-			if (list.size() == 9)
-				break;
-		}
-
-		bomSearchForm.setResult(list);
+		bomSearchForm.setResult(result);
 		ModelAndView mv = new ModelAndView("welcome", "bomSearchForm", bomSearchForm);
 		return mv;
 	}
