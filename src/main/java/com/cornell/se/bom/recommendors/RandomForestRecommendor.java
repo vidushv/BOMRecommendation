@@ -67,7 +67,7 @@ public class RandomForestRecommendor implements Recommendor{
 		writer.close();
 
 		ProcessBuilder builder = new ProcessBuilder("sh",
-				"/home/mukul/git/BOMRecommendation/machine_learning/execute.sh");
+				"/home/mukul/git/BOMRecommendation/machine_learning/execute.sh", "/home/mukul/git/BOMRecommendation/machine_learning/csvfile.csv");
 		Process p = builder.start();
 		p.waitFor();
 
