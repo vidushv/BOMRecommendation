@@ -5,10 +5,11 @@ from sklearn.metrics import precision_recall_fscore_support
 from sklearn.metrics import accuracy_score
 from sklearn.ensemble import RandomForestClassifier
 from sklearn.datasets import make_classification
-
+import warnings
 from gensim.models.keyedvectors import KeyedVectors
-model = KeyedVectors.load_word2vec_format("/home/mukul/git/BOMRecommendation/machine_learning/glove_model2.txt", binary=False, limit=50000)
+model = KeyedVectors.load_word2vec_format("glove_model2.txt", binary=False, limit=50000)
 
+warnings.filterwarnings("ignore")
 
 def feature_extractor(orig_object, data_object):
     """
@@ -141,8 +142,8 @@ def main():
     main function being called
     :return: print evaluation metrics:
     """
-    df1 = pd.read_csv('evaluate_data.csv')
-    df = pd.read_csv('csvfile.csv')
+    df1 = pd.read_csv(sys.argv[2])
+    df = pd.read_csv(sys.argv[1])
     dataobjects = df.values.tolist()
     bomobjects = df1.values.tolist()
     classify(bomobjects,dataobjects)

@@ -3,8 +3,9 @@ import pandas as pd
 import numpy as np
 from sklearn.ensemble import RandomForestClassifier
 from sklearn.datasets import make_classification
-
-from gensim.models.keyedvectors import KeyedVectors
+import classifier
+import warnings
+warnings.filterwarnings("ignore")
 
 def compute_feature_importance(data_objects, printable = True, n_estimators=100, max_depth=2,random_state=0):
     """
@@ -46,7 +47,7 @@ def main():
     main function for the script
     :return feature importance to be printed:
     """
-    df = pd.read_csv('csvfile.csv')
+    df = pd.read_csv(sys.argv[1])
     dataobjects = df.values.tolist()
     compute_feature_importance(dataobjects)
 
