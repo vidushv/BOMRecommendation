@@ -46,6 +46,7 @@
 		  </option><option value="Multinomial Naive Bayes">
 		  </option><option value="Support Vector Machine">
 		</option></datalist>
+		<a style="color:white" href="/doc/index.html" style="">View Documentation</a>
 		</div>
       </form:form>
     </div>
