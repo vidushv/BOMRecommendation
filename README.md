@@ -7,7 +7,8 @@ System Requirements
 2. MySQL v14.14 or above. Port, username, password can be set/updated in application.properties
 3. Maven 3.5
 4. Python 3
-    Please ensure, 
+    Please ensure,
+    
             Numpy (https://www.numpy.org/), 
             Pickle (https://docs.python.org/3/library/pickle.html), 
             SKLearn (https://scikit-learn.org/stable/), 
@@ -15,6 +16,7 @@ System Requirements
             Pandas (https://pandas.pydata.org/), 
             Sys (https://docs.python.org/3/library/sys.html), 
             Gensim (https://pypi.org/project/gensim/)
+            
     is installed.
 
 5. Chrome v29, Firefox v66
