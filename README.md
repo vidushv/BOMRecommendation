@@ -35,7 +35,7 @@ Note - The system is compatible on Windows. The instructions however focus on Ub
 
 5. Run convert.py (same directory location as above) - to generate glove_model2.txt
 
-6. Move back to repository root. Run mvn clean install to compile and download relevant Java dependencies.
+6. Move back to repository root. Run 'mvn clean install' to compile and download relevant Java dependencies.
 
 7. To start the application run the main method inside - src/main/java/com/cornell/se/bom/bomRecom/BomRecomApplication.java
 
