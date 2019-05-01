@@ -19,6 +19,15 @@ public class BOMSearchForm implements Serializable {
 	@Size(min = 2, max = 300)
 	private String selectedIDNRK;
 	private String MATKL;
+	private String Algorithm;
+	public String getAlgorithm() {
+		return Algorithm;
+	}
+
+	public void setAlgorithm(String algorithm) {
+		Algorithm = algorithm;
+	}
+
 	public String getMATKL() {
 		return MATKL;
 	}

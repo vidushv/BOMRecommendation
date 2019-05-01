@@ -32,6 +32,21 @@
             <button class="btn-search" type="submit">SEARCH</button>
           </div>
         </div>
+		                <br>
+		    <div style="
+		    text-align: right;
+		">
+		        <label style="color:white;font-size:20px;">Please select algorithm :</label>
+		    <form:input list="algo" id="Algorithm" path="Algorithm"/>
+		
+		<datalist id="algo">
+		  <option value="Random Forest">
+		  </option><option value="Logistic Regression">
+		  </option><option value="Gaussian Naive Bayes">
+		  </option><option value="Multinomial Naive Bayes">
+		  </option><option value="Support Vector Machine">
+		</option></datalist>
+		</div>
       </form:form>
     </div>
   

@@ -1,13 +1,6 @@
 package com.cornell.se.bom.controller;
 
-import java.io.BufferedReader;
-import java.io.BufferedWriter;
-import java.io.File;
-import java.io.FileWriter;
 import java.io.IOException;
-import java.io.InputStreamReader;
-import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
 
 import org.slf4j.Logger;
@@ -20,9 +13,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.cornell.se.bom.forms.BOMSearchForm;
-import com.cornell.se.bom.model.MAST;
-import com.cornell.se.bom.model.MISCELLANEOUS;
-import com.cornell.se.bom.model.MiscIdentity;
 import com.cornell.se.bom.model.STPO;
 import com.cornell.se.bom.model.StpoIdentity;
 import com.cornell.se.bom.recommendors.RecommendationFactory;
@@ -61,7 +51,8 @@ public class WelcomeController {
 	public ModelAndView displaySearchPage(
 			@RequestParam(value = "selectedIdentity", required = true) String selectedIdentity,
 			@RequestParam(value = "selectedIDNRK", required = true) String selectedName,
-			@RequestParam(value = "MATKL", required = true) String MATKL)
+			@RequestParam(value = "MATKL", required = true) String MATKL,
+			@RequestParam(value = "Algorithm", required = true) String algo)
 			throws IOException, InterruptedException {
 
 		logger.info("Entering displaySearchPage");
@@ -83,7 +74,7 @@ public class WelcomeController {
 		
 		STPO fromUI = cdposService.getSTPOById(identity);
 
-		List<STPO> result = recommendationFactory.getRecommendor("Random Forest").getRecommendations(fromUI, cdposService);
+		List<STPO> result = recommendationFactory.getRecommendor(algo).getRecommendations(fromUI, cdposService);
 		
 		bomSearchForm.setResult(result);
 		ModelAndView mv = new ModelAndView("welcome", "bomSearchForm", bomSearchForm);

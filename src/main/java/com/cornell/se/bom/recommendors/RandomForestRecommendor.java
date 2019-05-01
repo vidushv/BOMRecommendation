@@ -67,7 +67,7 @@ public class RandomForestRecommendor implements Recommendor{
 		writer.close();
 
 		ProcessBuilder builder = new ProcessBuilder("sh",
-				"/home/mukul/git/BOMRecommendation/machine_learning/execute.sh", "/home/mukul/git/BOMRecommendation/machine_learning/csvfile.csv");
+				"/home/mukul/git/BOMRecommendation/machine_learning/execute.sh", "/home/mukul/git/BOMRecommendation/machine_learning/csvfile.csv", RecommendationFactory.RANDOM_FOREST);
 		Process p = builder.start();
 		p.waitFor();
 
@@ -82,7 +82,7 @@ public class RandomForestRecommendor implements Recommendor{
 		
 		List<STPO> recommendations = new ArrayList<STPO>();
 	
-		String lineSuc = brInput.readLine();
+		String lineSuc;
 
 		while ((lineSuc = brInput.readLine()) != null) {
 			
