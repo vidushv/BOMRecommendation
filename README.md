@@ -4,7 +4,7 @@ System Requirements
 -------------------
 
 1. Java 8 or above
-2. MySQL v14.14 or above. Port, username, password can be set/updated in application.properties
+2. MySQL v5.7 or above. Port, username, password can be set/updated in application.properties
 3. Maven 3.5
 4. Python 3
     Please ensure following dependencies are installed.
