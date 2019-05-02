@@ -5,9 +5,18 @@ from sklearn.metrics import precision_recall_fscore_support
 from sklearn.metrics import accuracy_score
 from sklearn.ensemble import RandomForestClassifier
 from sklearn.datasets import make_classification
-
+from sklearn.svm import SVC
+from sklearn.naive_bayes import GaussianNB
+from sklearn.naive_bayes import MultinomialNB
+from sklearn import linear_model
+from sklearn.datasets import make_classification
 from gensim.models.keyedvectors import KeyedVectors
-model = KeyedVectors.load_word2vec_format("/home/mukul/git/BOMRecommendation/machine_learning/glove_model2.txt", binary=False, limit=50000)
+#model = KeyedVectors.load_word2vec_format("/home/mukul/git/BOMRecommendation/machine_learning/glove_model2.txt", binary=False, limit=50000)
+model = KeyedVectors.load_word2vec_format("glove_model2.txt", binary=False, limit=50000)
+import warnings
+warnings.filterwarnings("ignore")
+
+L2_REGULARIZATION_STRENGTH = 0.9
 
 
 def feature_extractor(orig_object, data_object):
@@ -83,11 +92,9 @@ def feature_extractor(orig_object, data_object):
         score = 0
     availability_score = score
     feat.append(availability_score)
-    #feat.append(data_object[0])
-    #print(feat)
     return feat
 
-def classify(bom_objects,data_objects, printable = True, n_estimators=100, max_depth=2,random_state=0):
+def classify(bom_objects,data_objects, printable = True, n_estimators=100, max_depth=2,random_state=0, ml_algorithm='rf'):
     """
     This function is used to compute the accuracy, precision, recall and f-score of the model
     and evaluate the same on being averaged over a few items.
@@ -97,6 +104,7 @@ def classify(bom_objects,data_objects, printable = True, n_estimators=100, max_d
     :param n_estimators: ensemble estimates
     :param max_depth: max depth of random forest trees
     :param random_state: random state argument for random forests
+    :param ml_algorithm: ml algo to be used
     :return print evaluation metrics:
     """
     precision =0.0
@@ -106,7 +114,7 @@ def classify(bom_objects,data_objects, printable = True, n_estimators=100, max_d
     for a in bom_objects:
         orig_bom = a
         feature_matrix = []
-        for i in range(1, len(data_objects)):
+        for i in range(0, len(data_objects)):
             temp = feature_extractor(orig_bom, data_objects[i])
             temp.append(data_objects[i][0])
             feature_matrix.append(temp)
@@ -116,21 +124,52 @@ def classify(bom_objects,data_objects, printable = True, n_estimators=100, max_d
         Ytrain = []
         for i in range(len(Xtrain)):
             Ytrain.append(X[i][-1])
-        clf = RandomForestClassifier(n_estimators=100, max_depth=2,random_state=0)
-        clf.fit(Xtrain[:int(len(Xtrain)*0.7)], Ytrain[:int(len(Xtrain)*0.7)])
-        Ytest = clf.predict(Xtrain[int(len(Xtrain)*0.7)+1:])
-        scores = precision_recall_fscore_support(Ytrain[int(len(Xtrain)*0.7)+1:], Ytest, average='micro')
-        acc = accuracy_score(Ytrain[int(len(Xtrain)*0.7)+1:], Ytest)
+        clf = RandomForestClassifier(n_estimators=1000, max_depth=4,random_state=0)
+        clf = RandomForestClassifier(n_estimators=1000, max_depth=6,random_state=0)
+        if ml_algorithm == 'rf':
+            clf = RandomForestClassifier(n_estimators=100, max_depth=2,random_state=0)
+        elif ml_algorithm == 'lr':
+            clf = linear_model.LogisticRegression(C=L2_REGULARIZATION_STRENGTH, penalty='l2', n_jobs=4)
+        elif ml_algorithm == 'gnb':
+            clf = GaussianNB(priors=None, var_smoothing=1e-09)
+        elif ml_algorithm == 'mnb':
+            clf = MultinomialNB()
+        elif ml_algorithm == 'svm':
+            clf = SVC(kernel = 'linear', C = 1, probability = True)
+        classes = {}
+        inverse_class = {}
+        cnt=0
+        for i in range(len(Ytrain)):
+            if Ytrain[i] not in classes:
+                classes[Ytrain[i]]=cnt
+                inverse_class[cnt]=Ytrain[i]
+                cnt+=1
+        Ytrain1 = []
+        for i in range(len(Ytrain)):
+            Ytrain1.append(classes[Ytrain[i]])
+
+
+        clf.fit(Xtrain[:int(0.8*len(Xtrain))].astype(np.float), Ytrain1[:int(0.8*len(Xtrain))])
+        Ytest = clf.predict(Xtrain[int(0.8*len(Xtrain))+1:].astype(np.float))
+        scores = precision_recall_fscore_support(Ytrain1[int(0.8*len(Xtrain))+1:], Ytest, average='micro')
+        acc = accuracy_score(Ytrain1[int(0.8*len(Xtrain))+1:], Ytest)
         precision+=scores[0]
         recall+=scores[1]
         fscore+=scores[2]
         accuracy+=acc
     lent = len(bom_objects)
     if (printable== True):
-        print('precision: ',"{0:0.3f}".format(precision/lent))
-        print('recall\t : ',"{0:0.3f}".format(recall/lent))
-        print('f-score\t : ',"{0:0.3f}".format(fscore/lent))
-        print('accuracy : ',"{0:0.3f}".format(accuracy/lent))
+        if ml_algorithm =='rf':
+            print('Random Forest\t\t : ',"{0:0.3f}".format(accuracy/lent))
+        elif ml_algorithm =='svm':
+            print('Support Vector Machines\t : ',"{0:0.3f}".format(accuracy/lent))
+        elif ml_algorithm =='lr':
+            print('Logistic Regression\t : ',"{0:0.3f}".format(accuracy/lent))
+        elif ml_algorithm =='gnb':
+            print('Gaussian Naive Bayes\t : ',"{0:0.3f}".format(accuracy/lent))
+        elif ml_algorithm =='mnb':
+            print('Multinomial Naive Bayes\t : ',"{0:0.3f}".format(accuracy/lent))
+
     result = list(scores)
     result.append(acc)
     return result
@@ -141,11 +180,14 @@ def main():
     main function being called
     :return: print evaluation metrics:
     """
-    df1 = pd.read_csv('evaluate_data.csv')
-    df = pd.read_csv('csvfile.csv')
+    df1 = pd.read_csv(sys.argv[2])
+    df = pd.read_csv(sys.argv[1])
     dataobjects = df.values.tolist()
     bomobjects = df1.values.tolist()
-    classify(bomobjects,dataobjects)
+    ml_list = ['rf','gnb','mnb','svm','lr']
+    print('Accuracy scores')
+    for a in ml_list:
+        classify(bomobjects,dataobjects,ml_algorithm=a)
 
 if __name__ == "__main__":
     main()
