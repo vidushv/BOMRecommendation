@@ -1,8 +1,5 @@
 ID,Plant,Storage Location,Material Group,Volume,Purchasing Group,MRP Group,Lot Size,Stock,Availbility
-0,Boston,Boston,701,5,2,5,7,62,47
-1,Seattle,London,701,6,0,14,48,65,85
-4,Toronto,London,700,5,4,10,47,53,64
-5,Atlanta,Boston,700,7,4,20,5,35,68
-3,Philadelphia,Boston,700,4,4,12,38,99,73
-1,Seattle,London,701,7,0,17,10,26,69
-2,Philadelphia,Boston,700,1,4,4,34,10,83
+AUTOMOTIVE BATTERY,Philadelphia,Toronto,201,5,0,10,100,471,120
+BMW_FDZ BATTERY,Philadelphia,London,201,8,0,20,20,3247,78
+DEKA 410 AMP MOWER BAT,London,Toronto,201,7,1,0,50,774,198
+TOP DEEP CYCLE BATTERY,London,London,201,7,1,0,60,612,79
