@@ -72,7 +72,7 @@ class TestStringMethods(unittest.TestCase):
         df = pd.read_csv('csvfile.csv')
         dataobjects = df.values.tolist()
         bomobjects = df1.values.tolist()
-        result = classifier.classify(dataobjects, bomobjects, False)
+        result = classifier.classify(bomobjects,dataobjects, printable= False,ml_algorithm='mnb')
         self.assertEqual(len(result), 5)
 
     def test_predict_probabilities(self):
